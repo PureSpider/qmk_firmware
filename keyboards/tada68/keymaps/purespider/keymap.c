@@ -75,7 +75,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	xprintf("KL: col=%02d, row=%02d, keycode=%d, pressed=%d, layer=%02d\n", record->event.key.col, record->event.key.row, keycode, record->event.pressed, 0);
+	xprintf("c=%02d,r=%02d,k=%05d,p=%1d,l=%02d\n", record->event.key.col, record->event.key.row, keycode, record->event.pressed, 0);
 
 	return true;
 };
