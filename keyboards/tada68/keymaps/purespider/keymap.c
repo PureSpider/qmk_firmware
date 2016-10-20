@@ -50,12 +50,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_PSCR,_______,_______,_______,_______, \
   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        _______,_______, \
           _______, BL_DEC,BL_TOGG, BL_INC,_______,_______,_______,_______,KC_VOLD,KC_MUTE,KC_VOLU,_______,KC_MSTP,_______, \
-  _______,_______,_______,                _______,                        _______,_______,_______,KC_MPRV,KC_MPLY,KC_MNXT),
+  _______,_______,_______,                   M(1),                        _______,_______,_______,KC_MPRV,KC_MPLY,KC_MNXT),
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	switch(id) {
-		case 0: // this would trigger when you hit a key mapped as M(0)
+		case 0: // this triggers when you hit a key mapped as M(0)
 			if (record->event.pressed) { // on keydown
 				// Turn capslock LED on
 				PORTB &= ~(1<<2);
@@ -70,9 +70,28 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 				layer_off(_FL);
 			}
 		break;
+
+		case 1: // this triggers when you hit a key mapped as M(1)
+			if (record->event.pressed) { // on keydown
+				qk_ucis_start();
+			}
+		break;
 	}
 	return MACRO_NONE;
 };
+
+const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE
+(
+	UCIS_SYM("poop", 0x1f4a9),
+	UCIS_SYM("rofl", 0x1f923),
+	UCIS_SYM("kiss", 0x1f619),
+	UCIS_SYM("snowman", 0x2603),
+	UCIS_SYM("coffee", 0x2615),
+	UCIS_SYM("heart", 0x2764),
+	UCIS_SYM("bolt", 0x26a1),
+	UCIS_SYM("pi", 0x03c0),
+	UCIS_SYM("mouse", 0x1f401)
+);
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	xprintf("c=%02d,r=%02d,k=%05d,p=%1d,l=%010d|", record->event.key.col, record->event.key.row, keycode, record->event.pressed, layer_state);
