@@ -97,7 +97,7 @@ const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE
 	UCIS_SYM("coffee", 0x2615),
 	UCIS_SYM("heart", 0x2764),
 	UCIS_SYM("wait", 0x23f3),
-	UCIS_SYM("!", 0x2757),
+	UCIS_SYM("ex", 0x2757),
 	UCIS_SYM("v", 0x2713),
 	UCIS_SYM("x", 0x2717),
 	UCIS_SYM("rain", 0x2614),
