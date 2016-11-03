@@ -50,14 +50,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_FL] = KEYMAP_ANSI(
    KC_GRV,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL,KC_CALC, \
   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_PSCR,_______,_______,_______,_______, \
-  _______,_______,_______,_______,_______,   M(2),_______,_______,_______,_______,_______,_______,        _______,_______, \
+  _______,_______,_______,_______,   M(2),_______,_______,_______,_______,_______,_______,_______,        _______,_______, \
           _______, BL_DEC,BL_TOGG, BL_INC,_______,_______,_______,_______,KC_VOLD,KC_MUTE,KC_VOLU,_______,KC_MSTP,_______, \
   _______,_______,_______,                   M(1),                        _______,_______,_______,KC_MPRV,KC_MPLY,KC_MNXT),
 };
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
-	// Nothing here
+	set_unicode_input_mode(UC_WINC);
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
@@ -104,7 +104,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
 				if (currentInputMode == UC_OSX) {
 					return MACRO(
-						I(255),
+						I(150),
 						T(O),
 						T(S),
 						T(X),
@@ -116,7 +116,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 					);
 				} else if (currentInputMode == UC_LNX) {
 					return MACRO(
-						I(255),
+						I(150),
 						T(L),
 						T(N),
 						T(X),
@@ -128,7 +128,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 					);
 				} else if (currentInputMode == UC_WIN) {
 					return MACRO(
-						I(255),
+						I(150),
 						T(W),
 						T(I),
 						T(N),
@@ -140,7 +140,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 					);
 				} else if (currentInputMode == UC_BSD) {
 					return MACRO(
-						I(255),
+						I(150),
 						T(B),
 						T(S),
 						T(D),
@@ -152,7 +152,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 					);
 				} else if (currentInputMode == UC_WINC) {
 					return MACRO(
-						I(255),
+						I(150),
 						T(W),
 						T(I),
 						T(N),
