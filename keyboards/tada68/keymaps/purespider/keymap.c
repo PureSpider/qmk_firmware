@@ -104,7 +104,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
 				if (currentInputMode == UC_OSX) {
 					return MACRO(
-						I(150),
+						I(50),
 						T(O),
 						T(S),
 						T(X),
@@ -116,7 +116,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 					);
 				} else if (currentInputMode == UC_LNX) {
 					return MACRO(
-						I(150),
+						I(50),
 						T(L),
 						T(N),
 						T(X),
@@ -128,7 +128,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 					);
 				} else if (currentInputMode == UC_WIN) {
 					return MACRO(
-						I(150),
+						I(50),
 						T(W),
 						T(I),
 						T(N),
@@ -140,7 +140,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 					);
 				} else if (currentInputMode == UC_BSD) {
 					return MACRO(
-						I(150),
+						I(50),
 						T(B),
 						T(S),
 						T(D),
@@ -152,7 +152,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 					);
 				} else if (currentInputMode == UC_WINC) {
 					return MACRO(
-						I(150),
+						I(50),
 						T(W),
 						T(I),
 						T(N),
