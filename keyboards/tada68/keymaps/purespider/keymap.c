@@ -13,6 +13,8 @@
 
 #define NUM_UC_MODES 5
 
+static uint8_t currentInputMode;
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: (Base Layer) Default Layer
    * ,----------------------------------------------------------------.
@@ -93,7 +95,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
 			if (record->event.pressed) {
 				// Get current input mode
-				uint8_t currentInputMode = get_unicode_input_mode();
+				currentInputMode = get_unicode_input_mode();
 
 				currentInputMode++;
 
