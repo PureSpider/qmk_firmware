@@ -9,7 +9,7 @@
 #define _FL 1
 
 #define _______ KC_TRNS
-#define ISO_SHF MT(MOD_LSFT, KC_NUBS)
+#define ISO_SHF RSFT_T(KC_NUBS)
 
 #define NUM_UC_MODES 5
 
