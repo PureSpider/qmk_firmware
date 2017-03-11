@@ -5,6 +5,7 @@
 *.hex
 !util/bootloader.hex
 !quantum/tools/eeprom_reset.hex
+*.bin
 *.log
 *.lss
 *.lst
