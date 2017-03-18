@@ -13,7 +13,42 @@
 
 #define NUM_UC_MODES 5
 
-static uint8_t currentInputMode;
+#define UCIHID_START 0x8000
+#define UCIHID(endpoint) ( UCIHID_START | (endpoint) )
+
+enum unicode_codes {
+	poop,
+	rofl,
+	kiss,
+	mouse,
+	snowman,
+	coffee,
+	heart,
+	wait,
+	ex,
+	v,
+	x,
+	rain,
+	listen,
+	rip
+};
+
+uint32_t unicodes[] = {
+	[poop] = 0x1f4a9,
+	[rofl] = 0x1f923,
+	[kiss] = 0x1f619,
+	[mouse] = 0x1f401,
+	[snowman] = 0x2603,
+	[coffee] = 0x2615,
+	[heart] = 0x2764,
+	[wait] = 0x23f3,
+	[ex] = 0x2757,
+	[v] = 0x2713,
+	[x] = 0x2717,
+	[rain] = 0x2614,
+	[listen] = 0x261d,
+	[rip] = 0x2620
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: (Base Layer) Default Layer
@@ -59,15 +94,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_FL] = KEYMAP_ANSI(
    KC_GRV,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL,KC_CALC, \
   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_PSCR,_______,_______,_______,_______, \
-  _______,_______,_______,_______,   M(2),_______,_______,_______,_______,_______,_______,_______,        _______,_______, \
+  _______,_______,_______,_______,UCIHID(poop),_______,_______,_______,_______,_______,_______,_______,        _______,_______, \
           _______, BL_DEC,BL_TOGG, BL_INC,_______,_______,_______,_______,KC_VOLD,KC_MUTE,KC_VOLU,_______,KC_MSTP,_______, \
-  _______,_______,_______,                   M(1),                        _______,_______,_______,KC_MPRV,KC_MPLY,KC_MNXT  \
+  _______,_______,_______,                _______,                        _______,_______,_______,KC_MPRV,KC_MPLY,KC_MNXT  \
 ),
 };
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
-	set_unicode_input_mode(UC_WINC);
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
@@ -87,155 +121,20 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 				layer_off(_FL);
 			}
 		break;
-
-		case 1: // this triggers when you hit a key mapped as M(1)
-			if (record->event.pressed) { // on keydown
-				qk_ucis_start();
-			}
-		break;
-
-		case 2:
-			// UC_OSX 0  // Mac OS X
-			// UC_LNX 1  // Linux
-			// UC_WIN 2  // Windows 'HexNumpad'
-			// UC_BSD 3  // BSD (not implemented)
-			// UC_WINC 4 // WinCompose https://github.com/samhocevar/wincompose
-
-			if (record->event.pressed) {
-				// Get current input mode
-				currentInputMode = get_unicode_input_mode();
-
-				currentInputMode++;
-
-				// Clamp to the total number of input codes
-				currentInputMode = currentInputMode - ((currentInputMode / NUM_UC_MODES) * NUM_UC_MODES);
-
-				set_unicode_input_mode(currentInputMode);
-
-				if (currentInputMode == UC_OSX) {
-					return MACRO(
-						I(50),
-						T(O),
-						T(S),
-						T(X),
-						W(UNICODE_TYPE_DELAY * 4),
-						T(BSPC),
-						T(BSPC),
-						T(BSPC),
-						END
-					);
-				} else if (currentInputMode == UC_LNX) {
-					return MACRO(
-						I(50),
-						T(L),
-						T(N),
-						T(X),
-						W(UNICODE_TYPE_DELAY * 4),
-						T(BSPC),
-						T(BSPC),
-						T(BSPC),
-						END
-					);
-				} else if (currentInputMode == UC_WIN) {
-					return MACRO(
-						I(50),
-						T(W),
-						T(I),
-						T(N),
-						W(UNICODE_TYPE_DELAY * 4),
-						T(BSPC),
-						T(BSPC),
-						T(BSPC),
-						END
-					);
-				} else if (currentInputMode == UC_BSD) {
-					return MACRO(
-						I(50),
-						T(B),
-						T(S),
-						T(D),
-						W(UNICODE_TYPE_DELAY * 4),
-						T(BSPC),
-						T(BSPC),
-						T(BSPC),
-						END
-					);
-				} else if (currentInputMode == UC_WINC) {
-					return MACRO(
-						I(50),
-						T(W),
-						T(I),
-						T(N),
-						T(C),
-						W(UNICODE_TYPE_DELAY * 4),
-						T(BSPC),
-						T(BSPC),
-						T(BSPC),
-						T(BSPC),
-						END
-					);
-				}
-			}
-		break;
 	}
 	return MACRO_NONE;
 };
 
-const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE
-(
-//	UCIS_SYM("poop", 0x1f4a9),
-//	UCIS_SYM("rofl", 0x1f923),
-//	UCIS_SYM("kiss", 0x1f619),
-//	UCIS_SYM("mouse", 0x1f401),
-	UCIS_SYM("snowman", 0x2603),
-	UCIS_SYM("coffee", 0x2615),
-	UCIS_SYM("heart", 0x2764),
-	UCIS_SYM("wait", 0x23f3),
-	UCIS_SYM("ex", 0x2757),
-	UCIS_SYM("v", 0x2713),
-	UCIS_SYM("x", 0x2717),
-	UCIS_SYM("rain", 0x2614),
-	UCIS_SYM("listen", 0x261d),
-	UCIS_SYM("rip", 0x2620)
-);
-
-void unicode_input_start (void) {
-	switch(get_unicode_input_mode()) {
-		case UC_OSX:
-			register_code(KC_LALT);
-		break;
-		
-		case UC_LNX:
-			register_code(KC_LCTL);
-			register_code(KC_LSFT);
-			register_code(KC_U);
-			unregister_code(KC_U);
-			unregister_code(KC_LSFT);
-			unregister_code(KC_LCTL);
-		break;
-		
-		case UC_WIN:
-			register_code(KC_LALT);
-			register_code(KC_PPLS);
-			unregister_code(KC_PPLS);
-		break;
-		
-		// WinCompose with scroll lock as trigger key
-		case UC_WINC:
-			register_code(KC_SLCK);
-			unregister_code(KC_SLCK);
-			register_code(KC_U);
-			unregister_code(KC_U);
-	}
-	wait_ms(UNICODE_TYPE_DELAY);
-}
-
-void qk_ucis_symbol_fallback (void) {
-	// Do nothing
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	xprintf("c=%02d,r=%02d,k=%05d,p=%1d,l=%010d|", record->event.key.col, record->event.key.row, keycode, record->event.pressed, layer_state);
+	// xprintf("c=%02d,r=%02d,k=%05d,p=%1d,l=%010d|", record->event.key.col, record->event.key.row, keycode, record->event.pressed, layer_state);
+	xprintf("c=%02d,r=%02d,k=%" PRIu16 ",p=%1d,l=%010d|", record->event.key.col, record->event.key.row, keycode, record->event.pressed, layer_state);
+
+	if (record->event.pressed && keycode >= UCIHID_START) {
+		uint32_t ucode = unicodes[keycode & ~(UCIHID_START)];
+		xprintf("u=0x%08lX|", ucode);
+
+		return false;
+	}
 
 	return true;
 };
